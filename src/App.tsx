@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Screen from './components/Screen.tsx';
 import SpecialButton from './components/SpecialButtons.tsx';
 import Numbers from './components/Numbers.tsx';
