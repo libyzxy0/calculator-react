@@ -45,7 +45,7 @@ const handleCalculate = (): void => {
   } catch (error) {
     setState({
       input: '',
-      result: 'Error',
+      result: '',
     });
   }
 };
