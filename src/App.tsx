@@ -7,30 +7,51 @@ interface CalculatorState {
   result: string;
 }
 
-export default function App() {const [state, setState] = useState<CalculatorState>({
+export default function App() {
+  const [state, setState] = useState<CalculatorState>({
     input: '',
     result: '',
   });
+const handleInput = (value: string): void => {
+  setState((prevState) => ({
+    ...prevState,
+    input: prevState.result ? prevState.result + value : prevState.input + value,
+    result: '',
+  }));
+};
 
-  const handleInput = (value: string): void => {
-    setState((prevState) => ({ ...prevState, input: prevState.input + value }));
-  };
 
   const handleClear = (): void => {
-    setState({ input: '', result: '' });
+    setState({ input: '', result: '0' });
   };
 
   const handleDelete = (): void => {
-    setState((prevState) => ({ ...prevState, input: prevState.input.slice(0, -1) }));
+    setState((prevState) => ({
+      ...prevState,
+      input: prevState.input.slice(0, -1),
+    }));
+    setState((prevState) => ({
+      ...prevState,
+      result: prevState.result.slice(0, -1),
+    }));
   };
-  const handleCalculate = (): void => {
-    try {
-      const calculatedResult = eval(state.input).toString();
-      setState((prevState) => ({ ...prevState, result: calculatedResult }));
-    } catch (error) {
-      setState((prevState) => ({ ...prevState, result: 'Error' }));
-    }
-  };
+const handleCalculate = (): void => {
+  try {
+    const calculatedResult = eval(state.input).toString();
+    setState({
+      input: calculatedResult,
+      result: calculatedResult,
+    });
+  } catch (error) {
+    setState({
+      input: '',
+      result: 'Error',
+    });
+  }
+};
+
+  
+
   
   return (
     <div className="h-[100vh] w-full bg-gray-800 flex justify-center md:grid md:place-items-center">
