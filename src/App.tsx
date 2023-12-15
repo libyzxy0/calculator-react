@@ -2,34 +2,33 @@ import { useState } from 'react';
 import Screen from './components/Screen.tsx';
 import SpecialButton from './components/SpecialButtons.tsx';
 import Numbers from './components/Numbers.tsx';
+interface CalculatorState {
+  input: string;
+  result: string;
+}
 
-export default function App() {
-  const [input, setInput] = useState('');
-  const [result, setResult] = useState('');
-  
-  //Push clicked value to 'input' state
-  const handleInput = (value) => {
-    setInput((prevInput) => prevInput + value);
+export default function App() {const [state, setState] = useState<CalculatorState>({
+    input: '',
+    result: '',
+  });
+
+  const handleInput = (value: string): void => {
+    setState((prevState) => ({ ...prevState, input: prevState.input + value }));
   };
 
-  //Clear all values
-  const handleClear = () => {
-    setInput('');
-    setResult('');
+  const handleClear = (): void => {
+    setState({ input: '', result: '' });
   };
-  
-  //Delete 1 digit on 'input' state
-  const handleDelete = () => {
-    setInput((prevInput) => prevInput.slice(0, -1));
+
+  const handleDelete = (): void => {
+    setState((prevState) => ({ ...prevState, input: prevState.input.slice(0, -1) }));
   };
-  
-  //Calculate inputted values
-  const handleCalculate = () => {
+  const handleCalculate = (): void => {
     try {
-      let result = eval(input).toString();
-      setResult(result);
+      const calculatedResult = eval(state.input).toString();
+      setState((prevState) => ({ ...prevState, result: calculatedResult }));
     } catch (error) {
-      setResult('Error');
+      setState((prevState) => ({ ...prevState, result: 'Error' }));
     }
   };
   
@@ -37,7 +36,7 @@ export default function App() {
     <div className="h-[100vh] w-full bg-gray-800 flex justify-center md:grid md:place-items-center">
       <div className="w-[24rem] h-[40rem] bg-slate-600 shadow-lg rounded-lg mt-14 md:mt-0 md:w-[28rem] flex flex-col items-center">
       
-        <Screen data={ result ? result : input } />
+        <Screen data={ state.result ? state.result : state.input } />
         
         <div className="w-full flex flex-col mt-5">
            <div className="w-full flex flex-row justify-center">
