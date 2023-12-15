@@ -22,7 +22,7 @@ const handleInput = (value: string): void => {
 
 
   const handleClear = (): void => {
-    setState({ input: '', result: '0' });
+    setState({ input: '', result: '' });
   };
 
   const handleDelete = (): void => {
@@ -56,7 +56,6 @@ const handleCalculate = (): void => {
   return (
     <div className="h-[100vh] w-full bg-gray-800 flex justify-center md:grid md:place-items-center">
       <div className="w-[24rem] h-[40rem] bg-slate-600 shadow-lg rounded-lg mt-14 md:mt-0 md:w-[28rem] flex flex-col items-center">
-      
         <Screen data={ state.result ? state.result : state.input } />
         
         <div className="w-full flex flex-col mt-5">
